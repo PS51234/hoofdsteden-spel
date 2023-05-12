@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <Head>
+
+    </Head>
+    <body>
+        <script>
+
+var landen = [     
+      ["Italy","Rome"],
+      ["Luxembourg","Luxembourg"],
+      ["Belgium","Brussels"],
+      ["Denmark","Copenhagen"],
+      ["Finland","Helsinki"],
+      ["France","Paris"],
+      ["Slovakia","Bratislava"],
+      ["Slovenia","Ljubljana"],
+      ["Germany","Berlin"],
+      ["Greece","Athens"],
+      ["Ireland","Dublin"],
+      ["Netherlands","Amsterdam"],
+      ["Portugal","Lisbon"],
+      ["Spain","Madrid"],
+      ["Sweden","Stockholm"],
+      ["United Kingdom","London"],
+      ["Cyprus","Nicosia"],
+      ["Lithuania","Vilnius"],
+      ["Czech Republic","Prague"],
+      ["Estonia","Tallin"],
+      ["Hungary","Budapest"],
+      ["Austria","Vienna"],
+      ["Poland","Warsaw"]
+];
+
+    var hoofsteden = 
+[
+   " \n Rome \n"+ "Luxembourg\n" + "Brussels \n" +  "Copenhagen\n" + "Helsinki\n" + "Paris\n" + "Bratislava\n"+ "Ljubljana\n"+ "Berlin\n"+"Athens\n"+ "Dublin\n"+ "Amsterdam\n"+ "Lisbon\n "+ "Madrid\n"+"Stockholm\n" + "London\n"+ "Nicosia\n" + "Vilnius\n"+"Prague\n"+"Tallin\n"+ "Budapest\n"+ "Vienna\n"+ "Warsaw"
+];
+
+
+
+	
+
+   
+
+let i = 0 ; 
+let goed = 0 ; 
+let fout = 0 ; 
+let input = prompt("Hoeveel keer wil jij spelen?"); //5
+
+function generateRandomInteger(max) {
+    return Math.floor(Math.random() * max) + 1;
+}
+// steden in regels 
+while (i < input){ //0<5 1 , 2 , 3,4, 
+ let random= generateRandomInteger(landen.length);
+ let choose = prompt("Wat is de hoofdstad van " + landen[random][0] +"?" + hoofsteden  );
+
+
+if (choose== landen[random][1]){
+alert("Goed")
+goed++;
+}
+
+else if (choose != landen[random][1]){
+alert("Fout")
+fout++;
+}
+else{
+
+}
+
+i++;
+}
+
+let spel_data = {
+    keers: input,
+    goed: goed,
+    fout: fout
+  }
+// store in local storage 
+let spel_data_str = JSON.stringify(spel_data);
+let spelsArr = JSON.parse(localStorage.getItem('spels')) || [];
+spelsArr.push(spel_data);
+localStorage.setItem("spels", JSON.stringify(spelsArr));
+
+// get the  number of spels en fout en goed antwoorden 
+var stored = JSON.parse(localStorage.getItem('spels'));
+let keer=[];
+let  goedArr=[];
+let  foutArr=[] ;
+let filteredGoed= [];
+let filteredKeer= [];
+let filteredFout
+
+for(var y= 0; y < stored.length; y++){
+  // create arrays with the values of each time
+   keer[y]= parseInt(stored[y].keers);
+  filteredKeer = keer.filter(function (el) {
+  return el != null && !Number.isNaN(el); });
+  goedArr[y]= parseInt (stored[y].goed);
+filteredgoed = goedArr.filter(function (el) {
+  return el != null && !Number.isNaN(el); });
+foutArr[y]= parseInt (stored[y].fout);
+filteredfout = foutArr.filter(function (el) {
+  return el != null && !Number.isNaN(el); });
+}
+let keerSum= 0;
+let goedSum = 0; 
+let foutSum =0 ;
+for (let n=0; n<filteredKeer.length ; n++){
+  keerSum = keerSum+filteredKeer[n];
+  }
+  for  (let n=0; n<filteredgoed.length ; n++)
+{
+  goedSum = goedSum+filteredgoed[n];
+  } 
+  for  (let n=0; n<filteredfout.length ; n++)
+{
+  foutSum = foutSum+filteredfout[n];
+  } 
+alert("you have "+goed +"goed beantwoord" );
+alert("you have "+fout +"vragen niet goed benatwoord");
+alert("Je hebt "+keerSum + "keer gespeld."+ "je hebt " + goedSum + "goed antwoorden " + "je hebt " + foutSum + "niet goed antwoorden ");
+           
+         </script>
+    </body>
+</html>
